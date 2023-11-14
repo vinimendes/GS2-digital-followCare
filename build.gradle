@@ -1,7 +1,9 @@
 plugins {
-    id 'application'
     id 'java'
+    id 'application'
+    id 'org.springframework.boot' version '3.1.5'
 }
+apply plugin: 'io.spring.dependency-management'
 
 group = 'br.com.fiap'
 //version = '1.0-SNAPSHOT'
@@ -12,8 +14,19 @@ repositories {
 
 dependencies {
 
+    // Spring Boot
+    //implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '3.1.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.1.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.5'
+
+    // Seguranca
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.5'
 
 
+    // SQL | Microsoft JDBC Driver For SQL Server
+    implementation 'com.microsoft.sqlserver:mssql-jdbc:12.4.1.jre11'
+
+    // Testes
 //    testImplementation platform('org.junit:junit-bom:5.9.1')
 //    testImplementation 'org.junit.jupiter:junit-jupiter'
 }
