@@ -7,7 +7,7 @@ Solução desenvolvida para servir como API da FollowCare. A imagem a seguir
 vai ilustrar  
 
 ## Arquitetura da Solução
-[IMG]
+<img src="gs2_api_trekker.png">
 
 ## Deploy
 ...
