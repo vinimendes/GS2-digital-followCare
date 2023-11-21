@@ -2,8 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.0'
 }
-apply plugin: 'io.spring.dependency-management'
 
 group = 'br.com.fiap'
 sourceCompatibility = '17'
@@ -20,9 +20,16 @@ dependencies {
     //implementation group: 'org.springframework.boot', name: 'spring-boot-starter', version: '3.1.5'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.1.5'
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-validation', version: '3.1.5'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: '3.1.5'
 
     // Seguranca
     implementation group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: '3.1.5'
+
+    // JWT
+//    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.12.3'
+//    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.12.3'
+//    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.12.3'
+    implementation 'com.auth0:java-jwt:4.4.0'
 
 
     // SQL | Microsoft JDBC Driver For SQL Server

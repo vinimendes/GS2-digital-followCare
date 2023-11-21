@@ -3,14 +3,18 @@ package br.com.fiap.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "T_FLC_PACIENTE")
-public class PacienteModel implements Serializable {
+public class PacienteModel implements Serializable, UserDetails {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,24 +27,77 @@ public class PacienteModel implements Serializable {
     @Temporal(TemporalType.DATE)
     @Column
     private Calendar dt_nascimento;
+    @Column(name = "ds_cpf")
+    private String cpf;
+    @Column(name = "ds_senha")
+    private String senha;
+
     @Column
-    private String ds_cpf;
-    @Column
-    private String ds_senha;
+    private UserRole role;
 
     public PacienteModel() {}
 
+    public PacienteModel (String nm_paciente, Calendar dt_nascimento,
+                          String cpf, String senha, UserRole role) {
+        this.cpf = cpf;
+        this.senha = senha;
+        this.role = role;
+        this.nm_paciente = nm_paciente;
+        this.dt_nascimento = dt_nascimento;
+    }
+
     public PacienteModel (long cd_paciente, String nm_paciente,
-                          Calendar dt_nascimento, String ds_senha,
-                          String ds_cpf) {
+                          Calendar dt_nascimento, String senha,
+                          String cpf, UserRole role) {
 
         super();
         this.cd_paciente = cd_paciente;
         this.nm_paciente = nm_paciente;
         this.dt_nascimento = dt_nascimento;
-        this.ds_senha = ds_senha;
-        this.ds_cpf = ds_cpf;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.role = role;
 
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if (this.role == UserRole.ADMIN ) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),
+                    new SimpleGrantedAuthority("ROLE_USER"));
+        } else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return cpf;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public long getCd_paciente() {
@@ -67,19 +124,27 @@ public class PacienteModel implements Serializable {
         this.dt_nascimento = dt_nascimento;
     }
 
-    public String getDs_senha() {
-        return ds_senha;
+    public String getCpf() {
+        return cpf;
     }
 
-    public void setDs_senha(String ds_senha) {
-        this.ds_senha = ds_senha;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
-    public String getDs_cpf() {
-        return ds_cpf;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setDs_cpf(String ds_cpf) {
-        this.ds_cpf = ds_cpf;
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
     }
 }
