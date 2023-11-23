@@ -19,7 +19,7 @@ public class PacienteModel implements Serializable, UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long cd_paciente;
     @Column(length = 140)
     private String nm_paciente;
@@ -39,6 +39,7 @@ public class PacienteModel implements Serializable, UserDetails {
 
     public PacienteModel (String nm_paciente, Calendar dt_nascimento,
                           String cpf, String senha, UserRole role) {
+        super();
         this.cpf = cpf;
         this.senha = senha;
         this.role = role;

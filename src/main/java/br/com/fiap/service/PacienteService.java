@@ -20,30 +20,9 @@ public class PacienteService implements UserDetailsService {
     @Autowired
     private PacienteRepository pacienteRepository;
 
-//    @Autowired
-//    private PasswordEncoder encoder;
-
-//    public PacienteService (PacienteRepository pacienteRepository) {
-//        this.pacienteRepository = pacienteRepository;
-//    }
-
-
-//    public String addUser (PacienteModel pacienteModel) {
-//        pacienteModel.setSenha(encoder.encode(pacienteModel.getSenha()));
-//
-//        pacienteRepository.save(pacienteModel);
-//
-//        return "PACIENTE CADASTRADO";
-//    }
 
     @Override
     public UserDetails loadUserByUsername(String cpf) throws UsernameNotFoundException {
-
-        /*Optional<PacienteModel> pacienteModel = pacienteRepository.findByName(cpf);
-
-        return pacienteModel.map(PacienteDetails::new).orElseThrow(
-                () -> new UsernameNotFoundException(String.format("PACIENTE: %s NAO ENCONTRADO.", cpf))
-        );*/
 
         try {
 
