@@ -12,7 +12,7 @@ public class MedicoModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long cd_medico;
     @Column(length = 130)
     private String nm_medico;
