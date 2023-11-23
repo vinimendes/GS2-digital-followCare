@@ -1,6 +1,8 @@
 package br.com.fiap.controller;
 
+import br.com.fiap.config.TokenService;
 import br.com.fiap.dto.AuthDTO;
+import br.com.fiap.dto.CpfResponseDTO;
 import br.com.fiap.dto.RegisterDTO;
 import br.com.fiap.model.PacienteModel;
 import br.com.fiap.repository.PacienteRepository;
@@ -25,6 +27,9 @@ public class AuthenticationController {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+    @Autowired
+    private TokenService tokenService;
+
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody @Valid AuthDTO data) {
 
@@ -34,7 +39,10 @@ public class AuthenticationController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(data.login(), data.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.ok().build();
+        // Token
+        var token = tokenService.generateToken( (PacienteModel) auth.getPrincipal() );
+
+        return ResponseEntity.ok(new CpfResponseDTO(token));
     }
 
     @PostMapping("/register")
