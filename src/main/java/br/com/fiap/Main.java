@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Main {
 
-    @RequestMapping("/")
-    public String home() {
-        return "API - FollowCare";
-    }
-
     public static void main(String[] args)
     {
         SpringApplication.run(Main.class,args);
+    }
+
+    @RequestMapping("/")
+    public String home() {
+        return "API - FollowCare";
     }
 }

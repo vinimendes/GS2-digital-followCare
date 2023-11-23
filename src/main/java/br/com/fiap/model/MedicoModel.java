@@ -18,12 +18,7 @@ public class MedicoModel implements Serializable {
     private String nm_medico;
     @Column(length = 20)
     private String nm_crm;
-    //    @Column
-    //    private Calendar dt_nascimento;
-//    @Column
-//    private String ds_senha;
-    /*@Column(length = 11)
-    private String ds_cpf;*/
+
     @Column(length = 30)
     private String ds_especialidade;
 
