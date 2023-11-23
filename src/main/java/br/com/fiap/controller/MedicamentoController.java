@@ -33,20 +33,6 @@ public class MedicamentoController {
     }
 
 
-    // TENTATIVA DE PAGABLE AQUI
-
-//    @GetMapping
-//    public ResponseEntity<List<MedicamentoModel>> getAllMedicamentos(
-//            @RequestParam(defaultValue = "0") int page,
-//            @RequestParam(defaultValue = "10") int size) {
-//
-//        Pageable pageable = PageRequest.of(page, size);
-//        List<MedicamentoModel> medicamentos = medicamentoService.findAll(pageable).getContent();
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(medicamentos);
-//    }
-
-
 
     // SALVAR MEDICAMENTO
     @PostMapping
