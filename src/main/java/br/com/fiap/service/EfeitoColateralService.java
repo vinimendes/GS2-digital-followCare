@@ -5,6 +5,8 @@ import br.com.fiap.model.EfeitoColateralModel;
 import br.com.fiap.repository.ConsultaRepository;
 import br.com.fiap.repository.EfeitoColateralRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,10 @@ public class EfeitoColateralService {
 
     public List<EfeitoColateralModel> findAll() {
         return efeitoColateralRepository.findAll();
+    }
+
+    public Page<EfeitoColateralModel> findAll(Pageable pageable) {
+        return efeitoColateralRepository.findAll(pageable);
     }
 
     public Optional<EfeitoColateralModel> findById(long id) {

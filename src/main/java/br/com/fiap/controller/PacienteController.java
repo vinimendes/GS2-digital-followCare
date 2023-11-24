@@ -1,6 +1,7 @@
 package br.com.fiap.controller;
 
 import br.com.fiap.dto.PacienteDto;
+import br.com.fiap.dto.RegisterDTO;
 import br.com.fiap.model.PacienteModel;
 import br.com.fiap.service.PacienteService;
 import jakarta.validation.Valid;
@@ -8,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -59,18 +61,21 @@ public class PacienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> updatePaciente(@PathVariable(value = "id") long id,
-                                                 @RequestBody @Valid PacienteDto pacienteDto){
+                                                 @RequestBody @Valid RegisterDTO data){
 
         Optional<PacienteModel> usuarioModelOptional = pacienteService.findById(id);
 
         if(!usuarioModelOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(String.format("PACIENTE COM ID %d NAO FOI ENCONTRADO", id));
         }
-        var pacienteModel = new PacienteModel();
-        BeanUtils.copyProperties(pacienteDto, pacienteModel);
-        pacienteModel.setCd_paciente(usuarioModelOptional.get().getCd_paciente());
 
-        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.save(pacienteModel));
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
+        PacienteModel newPaciente = new PacienteModel(id, data.nm_paciente(), data.dt_nascimento(),
+                encryptedPassword,  data.cpf(), data.role());
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(pacienteService.save(newPaciente));
 
     }
 
