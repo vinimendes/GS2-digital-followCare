@@ -33,6 +33,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                                .requestMatchers( "/").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/medico").hasRole("ADMIN")
                                 //.requestMatchers("/medicamento", "/consulta").authenticated()
                                 //.requestMatchers("/efeitocolateral").authenticated()
