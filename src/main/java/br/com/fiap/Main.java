@@ -16,6 +16,6 @@ public class Main {
 
     @RequestMapping("/")
     public String home() {
-        return "API - FollowCare";
+        return "API - FollowCare ";
     }
 }
